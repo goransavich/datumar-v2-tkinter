@@ -6,65 +6,84 @@ import tkinter.font as tkFont
 
 root = Tk()
 root.title("Izračunaj staž")
-root.minsize(200,400)
+root.minsize(360,420)
+#fonts
+fontStyle = tkFont.Font(family="Lucida Grande", size=18)
+fontRezultat = tkFont.Font(family="Lucida Grande", size=12, weight="bold")
+fontButton = tkFont.Font(family="Lucida Grande", size=14)
 
+#get result
 def izracunaj():
     try:
-        dan_pocetni = int(dan_entry.get())
-        mesec_pocetni = int(mesec_entry.get())
-        godina_pocetni = int(godina_entry.get())
-        dan_zavrsni = int(dan2_entry.get())
-        mesec_zavrsni = int(mesec2_entry.get())
-        godina_zavrsni = int(godina2_entry.get())
+        dan_pocetni = int(dan_poc_entry.get())
+        mesec_pocetni = int(mes_poc_entry.get())
+        godina_pocetni = int(god_poc_entry.get())
+        dan_zavrsni = int(dan_zav_entry.get())
+        mesec_zavrsni = int(mes_zav_entry.get())
+        godina_zavrsni = int(god_zav_entry.get())
         date_1 = datetime(godina_pocetni, mesec_pocetni, dan_pocetni)
         date_2 = datetime(godina_zavrsni, mesec_zavrsni, dan_zavrsni)
         # Get the interval between two dates
         diff = relativedelta.relativedelta(date_2, date_1)
         rezultat.set(str(diff.years)+" godina "+str(diff.months)+" meseci i "+str(diff.days)+" dana.")
     except:
-        rezultat.set("Moras uneti sve ispravne vrednosti")
+        rezultat.set("Moraš uneti sve ispravne vrednosti")
 
+##first label frame for početni datum
+lf1 = ttk.LabelFrame(root, text='Početni datum', width=340, height=160)
+lf1.grid(column=0, row=0, padx=20, pady=20)
+#labels from first labelframe
+dan_poc_label= ttk.Label(lf1, text="Dan")
+dan_poc_label.grid(row=0, column=0, sticky = (W, E), padx=30)
 
-##POCETNI DATUM
-fontStyle = tkFont.Font(family="Lucida Grande", size=18)
-fontRezultat = tkFont.Font(family="Lucida Grande", size=16, weight="bold")
-ttk.Label(root, text="Datum početka", font=fontStyle).grid(row=0, column=1, pady=20, columnspan=3, sticky=(W, E))
-ttk.Label(root, text="Dan").grid(row=1, column=0, padx = 5, pady = 5)
-ttk.Label(root, text="Mesec").grid(row=1, column=1, padx = 5, pady = 5)
-ttk.Label(root, text="Godina").grid(row=1, column=2, padx = 5, pady = 5)
+mes_poc_label= ttk.Label(lf1, text="Mesec")
+mes_poc_label.grid(row=0, column=1, sticky = (W, E), padx=30)
 
-dan_entry = ttk.Entry(root)
-dan_entry.grid(column=0, row=2, padx=10, pady = 5)
+god_poc_label= ttk.Label(lf1, text="Godina")
+god_poc_label.grid(row=0, column=2, sticky = (W, E), padx=30)
+#entry fields from first labelframe
+dan_poc_entry= ttk.Entry(lf1, width=6)
+dan_poc_entry.grid(row=1, column=0, sticky = (W, E), padx=10, pady=10)
 
-mesec_entry = ttk.Entry(root)
-mesec_entry.grid(column=1, row=2, padx = 10, pady = 5)
+mes_poc_entry= ttk.Entry(lf1, width=6)
+mes_poc_entry.grid(row=1, column=1, sticky = (W, E), padx=10, pady=10)
 
-godina_entry = ttk.Entry(root)
-godina_entry.grid(column=2, row=2, padx = 10, pady = 5)
+god_poc_entry= ttk.Entry(lf1, width=12)
+god_poc_entry.grid(row=1, column=2, sticky = (W, E), padx=30, pady=10)
 
-##ZAVRSNI DATUM
-ttk.Label(root, text="Datum završetka", font=fontStyle).grid(row=3, column=1,pady=10, columnspan=3,sticky=(W, E))
-ttk.Label(root, text="Dan").grid(row=4, column=0, padx = 5, pady = 5)
-ttk.Label(root, text="Mesec").grid(row=4, column=1, padx = 5, pady = 5)
-ttk.Label(root, text="Godina").grid(row=4, column=2, padx = 5, pady = 5)
+##second labelframe for zavrsni datum
 
+lf2 = ttk.LabelFrame(root, text='Završni datum', width=340, height=160)
+lf2.grid(column=0, row=1, padx=20, pady=20)
+#labels from first labelframe
+dan_zav_label= ttk.Label(lf2, text="Dan")
+dan_zav_label.grid(row=0, column=0, sticky = (W, E), padx=30)
 
-dan2_entry = ttk.Entry(root)
-dan2_entry.grid(column=0, row=5, padx = 10, pady = 5)
+mes_zav_label= ttk.Label(lf2, text="Mesec")
+mes_zav_label.grid(row=0, column=1, sticky = (W, E), padx=30)
 
+god_zav_label= ttk.Label(lf2, text="Godina")
+god_zav_label.grid(row=0, column=2, sticky = (W, E), padx=30)
+#entry fields from second labelframe
+dan_zav_entry= ttk.Entry(lf2, width=6)
+dan_zav_entry.grid(row=1, column=0, sticky = (W, E), padx=10, pady=10)
 
-mesec2_entry = ttk.Entry(root)
-mesec2_entry.grid(column=1, row=5, padx = 10, pady = 5)
+mes_zav_entry= ttk.Entry(lf2, width=6)
+mes_zav_entry.grid(row=1, column=1, sticky = (W, E), padx=10, pady=10)
 
-
-godina2_entry = ttk.Entry(root)
-godina2_entry.grid(column=2, row=5, padx = 10, pady = 5)
-
+god_zav_entry= ttk.Entry(lf2, width=12)
+god_zav_entry.grid(row=1, column=2, sticky = (W, E), padx=30, pady=10)
+##third labelframe - result
+lf3 = ttk.LabelFrame(root, text='Rezultat', width=340)
+lf3.grid(column=0, row=2, padx=20, pady=20, sticky=(W, E))
+#label with result or except message
 rezultat = StringVar()
-ttk.Label(root, textvariable=rezultat, font=fontRezultat).grid(row=6, column=0, padx=30, pady=20, columnspan=3,sticky=(W, E))
+rez= ttk.Label(lf3, textvariable=rezultat, font=fontRezultat)
+rez.grid(row=0, column=0, sticky = (W, E), padx = 10, pady = 10)
 
-# checkbutton widget
-c1 = Button(root, text = "Izračunaj staž", bg="#3066be", fg="white", command=izracunaj)
-c1.grid(row = 7, column = 0, sticky = (W, E), columnspan = 3, padx = 10, pady = 25)
+# button widget count result
+c1 = Button(root, text = "Izračunaj staž", bg="#3066be", fg="white", font=fontButton, command=izracunaj)
+c1.grid(row = 3, column = 0, sticky = (W, E), padx = 10, pady = 5)
+
 
 root.mainloop()
